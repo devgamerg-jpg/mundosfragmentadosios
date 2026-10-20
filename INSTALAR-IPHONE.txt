@@ -1,0 +1,59 @@
+MUNDOS FRAGMENTADOS — TESTE NO IPHONE/IPAD PELO WINDOWS
+
+O pacote de teste será um IPA ARM64 para iOS/iPadOS 15 ou posterior.
+O primeiro download ainda está em preparação. Quando publicado, ele será assinado para o seu aparelho pelo Sideloadly, com sua conta Apple
+gratuita. Baixar o arquivo no Safari não instala o jogo.
+
+1. NO WINDOWS
+   Baixe o Sideloadly no site oficial: https://sideloadly.io/
+   Siga as dependências para Windows informadas nesse site, incluindo as
+   versões de iTunes/iCloud indicadas pelo próprio instalador.
+
+2. CONECTE O IPHONE
+   Ligue o iPhone ao computador por cabo USB e mantenha-o desbloqueado.
+   Toque em Confiar neste computador quando o iPhone perguntar.
+
+3. BAIXE O JOGO NO GITHUB
+   Quando uma versão de teste estiver publicada, abra:
+   https://github.com/devgamerg-jpg/mundosfragmentadosios/releases
+   Baixe o arquivo .ipa da versão. Se o pacote estiver dentro de um ZIP,
+   extraia-o no Windows antes. Não selecione o ZIP externo no Sideloadly.
+
+4. INSTALE COM O SIDELOADLY
+   Abra o Sideloadly, selecione o iPhone e arraste o arquivo .ipa.
+   Use sua conta Apple comum no Sideloadly e clique em Start.
+   A conta é usada localmente na instalação; o build não pede senha Apple
+   nem certificado Apple no GitHub. Não precisa de conta Developer paga.
+
+5. AUTORIZE A EXECUÇÃO NO IPHONE
+   Se solicitado, abra Ajustes > Geral > VPN e Gerenciamento de Dispositivo
+   e confie no perfil da sua conta. No iOS 16 ou posterior, também ative
+   Ajustes > Privacidade e Segurança > Modo de Desenvolvedor, se solicitado,
+   e conclua a reinicialização/confirmação indicada pelo iPhone.
+
+6. ABRA MUNDOS FRAGMENTADOS
+   O primeiro início prepara as cartas, imagens e áudios no armazenamento
+   do app. Aguarde a preparação terminar antes de fechar o jogo.
+   Teste o login, os menus, a exploração, um duelo e salvar/carregar.
+   Para testar o teclado, envie uma mensagem apenas se desejar; abrir e
+   fechar o campo de texto já permite conferir se ele cobre os botões.
+
+CONTA GRATUITA E RENOVAÇÃO
+   A autorização pessoal expira após 7 dias. O Sideloadly pode renová-la
+   automaticamente quando o computador e o iPhone estão disponíveis.
+   Depois do primeiro pareamento, é possível usar a mesma rede Wi-Fi.
+   Consulte https://sideloadly.io/faq para configurar a renovação.
+   Ao atualizar, use a mesma conta e identificador para preservar o app.
+   Evite apagar o jogo antes de atualizar: apagar o app remove seus dados locais.
+
+SE OCORRER UM ERRO
+   Envie o texto do erro do Sideloadly ou uma captura do jogo, junto do
+   modelo do iPhone, versão do iOS e versão do jogo. O relatório JSON
+   disponibilizado com o IPA registra a integridade do arquivo.
+
+FONTES
+   Sideloadly: https://sideloadly.io/
+   Conta gratuita Apple e validade:
+   https://developer.apple.com/help/account/basics/about-your-developer-account/
+
+Este pacote é para teste pessoal; o build não publica na App Store ou no itch.io.
