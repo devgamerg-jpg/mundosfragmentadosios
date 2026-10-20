@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Publish the verified iOS build without access to the private source repository."""
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
 import json
 import os
@@ -20,31 +21,58 @@ def require(condition, message):
         raise ValueError(message)
 
 
-def read_manifest(path):
-    data = json.loads(Path(path).read_text(encoding="utf-8"))
-    for key, pattern in (("version", r"\d+\.\d+\.\d+"),
-                         ("sourceCommit", r"[0-9a-f]{40}"),
-                         ("artifactSha256", r"[0-9a-f]{64}")):
-        require(isinstance(data.get(key), str) and re.fullmatch(pattern, data[key]),
-                "Campo inválido no manifesto: " + key)
+def validate_artifact_metadata(data, *, maximum_size=None):
+    require(isinstance(data, dict), "Metadados do artefato inválidos")
+    require(isinstance(data.get("artifactSha256"), str)
+            and re.fullmatch(r"[0-9a-f]{64}", data["artifactSha256"]),
+            "Campo inválido no manifesto: artifactSha256")
     require(type(data.get("artifactSize")) is int and data["artifactSize"] > 0,
             "Tamanho do artefato ausente ou inválido")
+    require(maximum_size is None or data["artifactSize"] <= maximum_size,
+            "O ZIP de cada parte deve ter no máximo 512 MiB")
+
+
+def validate_artifact_url(data):
     url = data.get("artifactUrl", "")
     require(isinstance(url, str) and not any(c.isspace() for c in url), "URL inválida")
-    parsed = urllib.parse.urlsplit(url)
+    try:
+        parsed = urllib.parse.urlsplit(url)
+        port = parsed.port
+    except ValueError:
+        raise ValueError("URL inválida") from None
     require(parsed.scheme == "https" and parsed.hostname is not None
             and parsed.hostname.endswith(".oaiusercontent.com")
             and parsed.username is None and parsed.password is None
-            and parsed.port in (None, 443) and not parsed.fragment,
+            and port in (None, 443) and not parsed.fragment,
             "A origem deve ser a URL temporária do pacote exportado")
+
+
+def read_manifest(path):
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    require(isinstance(data, dict), "Manifesto inválido")
+    for key, pattern in (("version", r"\d+\.\d+\.\d+"),
+                         ("sourceCommit", r"[0-9a-f]{40}")):
+        require(isinstance(data.get(key), str) and re.fullmatch(pattern, data[key]),
+                "Campo inválido no manifesto: " + key)
+    validate_artifact_metadata(data)
+    if "artifactParts" in data:
+        require("artifactUrl" not in data, "Informe artifactUrl ou artifactParts, nunca ambos")
+        parts = data["artifactParts"]
+        require(isinstance(parts, list) and 1 <= len(parts) <= 8,
+                "O manifesto deve conter de 1 a 8 partes")
+        for index, part in enumerate(parts, start=1):
+            validate_artifact_metadata(part, maximum_size=512 * 1024 ** 2)
+            require(part.get("name") == f"artifact.zip.part-{index:02d}",
+                    "As partes devem estar em ordem, com nomes sequenciais de 01 a 08")
+            validate_artifact_url(part)
+    else:
+        validate_artifact_url(data)
     return data
 
 
-def download(data, destination):
+def download_file(data, destination):
     # This link grants access only to the build intended for public distribution.
     # Do not echo it in logs or include it in release assets/notes.
-    if os.environ.get("GITHUB_ACTIONS") == "true":
-        print("::add-mask::" + data["artifactUrl"], flush=True)
     digest = hashlib.sha256()
     size = 0
     request = urllib.request.Request(data["artifactUrl"], headers={
@@ -62,6 +90,58 @@ def download(data, destination):
         raise ValueError("Não foi possível transferir o pacote; confira a validade da URL") from None
     require(size == data["artifactSize"], "Download incompleto")
     require(digest.hexdigest() == data["artifactSha256"], "SHA-256 do artefato divergente")
+
+
+def download(data, destination):
+    # Register masks before worker threads can write logs concurrently.
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        for transfer in data.get("artifactParts", [data]):
+            print("::add-mask::" + transfer["artifactUrl"], flush=True)
+    if "artifactParts" not in data:
+        download_file(data, destination)
+        return
+
+    # Each transfer is a ZIP envelope; its hash is distinct from the raw part
+    # and from the original artifact ZIP reconstructed below.
+    parts = data["artifactParts"]
+    with tempfile.TemporaryDirectory(prefix="mf-ios-parts-", dir=destination.parent) as temporary:
+        downloads = [(part, Path(temporary) / f"part-{index:02d}.zip")
+                     for index, part in enumerate(parts, start=1)]
+        with ThreadPoolExecutor(max_workers=min(4, len(downloads))) as executor:
+            pending = [executor.submit(download_file, part, path) for part, path in downloads]
+            try:
+                for future in as_completed(pending):
+                    future.result()
+            except Exception:
+                for future in pending:
+                    future.cancel()
+                raise
+
+        digest = hashlib.sha256()
+        size = 0
+        with destination.open("xb") as target:
+            # Preserve manifest order, independently of transfer completion order.
+            for part, path in downloads:
+                with zipfile.ZipFile(path) as archive:
+                    entries = archive.infolist()
+                    require(len(entries) == 1 and entries[0].filename == part["name"]
+                            and not entries[0].is_dir(),
+                            "O ZIP da parte deve conter somente o arquivo esperado")
+                    entry = entries[0]
+                    require(0 < entry.file_size <= data["artifactSize"] - size,
+                            "Tamanho da parte excede o tamanho esperado do artefato")
+                    require(not entry.flag_bits & 1, "O ZIP da parte não pode ser criptografado")
+                    # Stream the single member directly; never extract archive paths.
+                    with archive.open(entry) as source:
+                        while chunk := source.read(1024 * 1024):
+                            size += len(chunk)
+                            require(size <= data["artifactSize"],
+                                    "Partes excederam o tamanho esperado do artefato")
+                            digest.update(chunk)
+                            target.write(chunk)
+        require(size == data["artifactSize"], "Tamanho do artefato reconstruído divergente")
+        require(digest.hexdigest() == data["artifactSha256"],
+                "SHA-256 do artefato reconstruído divergente")
 
 
 def validate_archive(data, archive_path, output):

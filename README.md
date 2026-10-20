@@ -4,17 +4,19 @@ Canal oficial de distribuição do **Mundos Fragmentados para iPhone**, com vers
 
 Este repositório guarda os downloads e as orientações de instalação. O código do jogo permanece privado.
 
-## Disponibilidade
+## Versão de teste: 0.31.652
 
-**O download oficial para iOS está em preparação. Ainda não foi gerado um arquivo IPA para esta distribuição.**
+O IPA desta versão foi compilado e validado em 20/10/2026. Ele foi preparado para instalação e teste pessoal no iPhone, com assinatura feita pelo Sideloadly no Windows.
 
-A primeira release será identificada como **versão de teste / pré-lançamento (pre-release)**. A compatibilidade e o funcionamento no aparelho serão avaliados nessa etapa.
+**O download público ainda não está disponível.** A transferência para este repositório está pendente porque as novas execuções de transferência no GitHub falharam antes de iniciar uma máquina. O pacote compilado permanece guardado no repositório de origem.
 
-Quando estiver disponível, o arquivo `.ipa` e as instruções da versão aparecerão em:
+Quando a transferência for concluída, a versão de teste e seus arquivos aparecerão em [Releases — Mundos Fragmentados iOS](https://github.com/devgamerg-jpg/mundosfragmentadosios/releases). As [instruções de instalação](INSTALAR-IPHONE.txt) já estão disponíveis.
 
-**[Releases — Mundos Fragmentados iOS](https://github.com/devgamerg-jpg/mundosfragmentadosios/releases)**
+**Tamanho do IPA:** aproximadamente **1,70 GB** (1.700.386.980 bytes). Aguarde o download terminar no Windows antes de abrir o arquivo no Sideloadly.
 
-## O que será necessário para testar
+**Esta versão ainda não foi testada em um iPhone físico.** A instalação, a abertura do jogo e o funcionamento dos controles, do teclado e do progresso precisam ser confirmados no aparelho. Consulte as notas da versão antes de instalar e use a seção de testes abaixo para relatar problemas.
+
+## O que é necessário para testar
 
 - Um iPhone com **iOS 15 ou posterior**.
 - Um computador com Windows e acesso à internet.
@@ -22,15 +24,15 @@ Quando estiver disponível, o arquivo `.ipa` e as instruções da versão aparec
 - O [Sideloadly para Windows, baixado do site oficial](https://sideloadly.io/).
 - Uma conta Apple. **Uma conta gratuita atende à instalação pessoal de teste.**
 
-A instalação será feita pelo Sideloadly no computador, que assina o aplicativo para o seu aparelho e o transfere ao iPhone.
+A instalação é feita pelo Sideloadly no computador, que assina o aplicativo para o seu aparelho e o transfere ao iPhone. Para esse teste pessoal, não é necessária uma conta Apple Developer paga.
 
 ## Instalação pelo Windows
 
-As etapas abaixo serão usadas **depois que a primeira versão de teste estiver publicada**.
+Use o computador para baixar o IPA e mantenha o iPhone conectado por USB durante a instalação.
 
 1. **Prepare o computador.** Instale o Sideloadly e use as versões web de iTunes e iCloud pelos links exibidos na seção Windows do [site oficial](https://sideloadly.io/).
 
-2. **Baixe a versão de teste.** Abra a seção [Releases](https://github.com/devgamerg-jpg/mundosfragmentadosios/releases) deste repositório e leia as notas da versão. Baixe o arquivo `.ipa` indicado. Se ele vier dentro de um ZIP, extraia o ZIP primeiro.
+2. **Baixe a versão de teste quando estiver publicada.** Abra [Releases](https://github.com/devgamerg-jpg/mundosfragmentadosios/releases), leia as notas da versão e baixe o arquivo `MundosFragmentados-0.31.652-iOS-sideload.ipa`. Se estiver usando um pacote dentro de um ZIP, extraia o ZIP primeiro e selecione o arquivo `.ipa` no Sideloadly.
 
 3. **Conecte o iPhone por USB.** Mantenha o aparelho desbloqueado e toque em **Confiar neste computador** se a mensagem aparecer.
 
