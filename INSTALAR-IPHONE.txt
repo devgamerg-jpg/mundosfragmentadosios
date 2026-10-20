@@ -1,8 +1,8 @@
 MUNDOS FRAGMENTADOS — TESTE NO IPHONE/IPAD PELO WINDOWS
 
-O pacote de teste será um IPA ARM64 para iOS/iPadOS 15 ou posterior.
-O primeiro download ainda está em preparação. Quando publicado, ele será assinado para o seu aparelho pelo Sideloadly, com sua conta Apple
-gratuita. Baixar o arquivo no Safari não instala o jogo.
+Formato dos pacotes de teste: IPA ARM64 para iOS/iPadOS 15 ou posterior.
+A instalação exige que o Sideloadly assine o pacote para o seu aparelho,
+usando sua conta Apple gratuita. Baixar no Safari não instala o jogo.
 
 1. NO WINDOWS
    Baixe o Sideloadly no site oficial: https://sideloadly.io/
@@ -14,7 +14,7 @@ gratuita. Baixar o arquivo no Safari não instala o jogo.
    Toque em Confiar neste computador quando o iPhone perguntar.
 
 3. BAIXE O JOGO NO GITHUB
-   Quando uma versão de teste estiver publicada, abra:
+   Abra o canal de versões de teste:
    https://github.com/devgamerg-jpg/mundosfragmentadosios/releases
    Baixe o arquivo .ipa da versão. Se o pacote estiver dentro de um ZIP,
    extraia-o no Windows antes. Não selecione o ZIP externo no Sideloadly.

@@ -1,0 +1,30 @@
+name: Publicar teste iOS
+
+on:
+  push:
+    branches: [main]
+    paths: [distribution/release.json]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publicar-ios
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Transferir, conferir e publicar o IPA
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLIC_REPOSITORY: ${{ github.repository }}
+          PUBLIC_COMMIT: ${{ github.sha }}
+        run: python3 tools/publish_ios.py distribution/release.json
