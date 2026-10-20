@@ -6,8 +6,8 @@ usando sua conta Apple gratuita. Baixar no Safari não instala o jogo.
 
 1. NO WINDOWS
    Baixe o Sideloadly no site oficial: https://sideloadly.io/
-   Siga as dependências para Windows informadas nesse site, incluindo as
-   versões de iTunes/iCloud indicadas pelo próprio instalador.
+   Use as versões web de iTunes e iCloud pelos links exibidos na seção
+   Windows do site do Sideloadly.
 
 2. CONECTE O IPHONE
    Ligue o iPhone ao computador por cabo USB e mantenha-o desbloqueado.
@@ -27,9 +27,9 @@ usando sua conta Apple gratuita. Baixar no Safari não instala o jogo.
 
 5. AUTORIZE A EXECUÇÃO NO IPHONE
    Se solicitado, abra Ajustes > Geral > VPN e Gerenciamento de Dispositivo
-   e confie no perfil da sua conta. No iOS 16 ou posterior, também ative
-   Ajustes > Privacidade e Segurança > Modo de Desenvolvedor, se solicitado,
-   e conclua a reinicialização/confirmação indicada pelo iPhone.
+   e confie no perfil da sua conta. No iOS 16 ou posterior, ative também
+   Ajustes > Privacidade e Segurança > Modo de Desenvolvedor, caso ainda
+   esteja desativado, e conclua a reinicialização/confirmação indicada.
 
 6. ABRA MUNDOS FRAGMENTADOS
    O primeiro início prepara as cartas, imagens e áudios no armazenamento

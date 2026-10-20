@@ -28,7 +28,7 @@ A instalação será feita pelo Sideloadly no computador, que assina o aplicativ
 
 As etapas abaixo serão usadas **depois que a primeira versão de teste estiver publicada**.
 
-1. **Prepare o computador.** Instale o Sideloadly e siga as dependências de iTunes e iCloud indicadas no [site oficial](https://sideloadly.io/).
+1. **Prepare o computador.** Instale o Sideloadly e use as versões web de iTunes e iCloud pelos links exibidos na seção Windows do [site oficial](https://sideloadly.io/).
 
 2. **Baixe a versão de teste.** Abra a seção [Releases](https://github.com/devgamerg-jpg/mundosfragmentadosios/releases) deste repositório e leia as notas da versão. Baixe o arquivo `.ipa` indicado. Se ele vier dentro de um ZIP, extraia o ZIP primeiro.
 
@@ -36,7 +36,7 @@ As etapas abaixo serão usadas **depois que a primeira versão de teste estiver 
 
 4. **Instale o aplicativo.** Abra o Sideloadly, selecione o iPhone conectado e arraste o arquivo `.ipa` para a janela. Informe sua conta Apple, clique em **Start** e siga as solicitações da instalação.
 
-5. **Autorize a execução, se solicitado.** No iPhone, confira **Ajustes → Geral → VPN e Gerenciamento de Dispositivo** e confie no perfil da sua conta. No iOS 16 ou posterior, também pode ser necessário ativar **Ajustes → Privacidade e Segurança → Modo de Desenvolvedor** e concluir a reinicialização e a confirmação solicitadas pelo aparelho.
+5. **Autorize a execução.** Se solicitado, no iPhone confira **Ajustes → Geral → VPN e Gerenciamento de Dispositivo** e confie no perfil da sua conta. No iOS 16 ou posterior, ative também **Ajustes → Privacidade e Segurança → Modo de Desenvolvedor**, caso ainda esteja desativado, e conclua a reinicialização e a confirmação solicitadas pelo aparelho.
 
 6. **Abra Mundos Fragmentados.** O primeiro início prepara o conteúdo do jogo. Aguarde essa etapa terminar antes de fechar o aplicativo.
 
